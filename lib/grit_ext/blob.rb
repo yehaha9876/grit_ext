@@ -1,22 +1,18 @@
 module Grit
   class Blob
 
-    alias_method :old_name, :name
-    alias_method :old_data, :data
-
-    def name
-      GritExt.encode! old_name
+    def utf8_name
+      GritExt.encode! name
     end
 
-    def data
-      GritExt.encode! old_data
+    def utf8_data
+      GritExt.encode! data
     end
 
     class << self
-      alias_method :old_blame, :blame
 
-      def blame(repo, commit, file)
-        old_blame(repo, commit, file).map do |b,lines|
+      def utf8_blame(repo, commit, file)
+        blame(repo, commit, file).map do |b,lines|
           [b, GritExt.encode!(lines.join('\n')).split('\n')]
         end
       end

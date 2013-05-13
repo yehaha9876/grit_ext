@@ -1,15 +1,12 @@
 module Grit
   class Actor
 
-    alias_method :old_name, :name
-    alias_method :old_email, :email
-
-    def name
-      GritExt.encode! old_name
+    def uf8_name
+      GritExt.encode! name
     end
 
-    def email
-      GritExt.encode! old_email
+    def urf8_email
+      GritExt.encode! email
     end
   end
 end

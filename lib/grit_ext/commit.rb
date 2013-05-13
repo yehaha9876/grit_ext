@@ -1,15 +1,12 @@
 module Grit
   class Commit
 
-    alias_method :old_message, :message
-    alias_method :old_short_message, :short_message
-
-    def message
-      GritExt.encode! old_message
+    def utf8_message
+      GritExt.encode! message
     end
 
-    def short_message
-      GritExt.encode! old_short_message
+    def utf8_short_message
+      GritExt.encode! short_message
     end
   end
 end

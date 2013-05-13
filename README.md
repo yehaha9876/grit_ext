@@ -26,6 +26,16 @@ Or install it yourself as:
 ```
 
 
+################
+cococode version:
+since GritExt inherit Grit module and overwrite some methods to force_encoding 
+those parameters to utf-8 formate. This will cause encoding problems whithin 
+grit lib when calling those methods. 
+
+This version of GritExt does not overwrite the grit's methods, instead, extend 
+a new method utf8_xxx to supply utf8 encoding. 
+
+
 ## Contributing
 
 1. Fork it

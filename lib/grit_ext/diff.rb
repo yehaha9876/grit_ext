@@ -9,7 +9,7 @@ module Grit
       GritExt.encode! @b_path
     end
 
-    def diff
+    def utf8_diff
       if @diff.nil?
         @diff = ""
       else

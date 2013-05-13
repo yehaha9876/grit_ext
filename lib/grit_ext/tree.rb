@@ -1,10 +1,8 @@
 module Grit
   class Tree
 
-    alias_method :old_name, :name
-
-    def name
-      GritExt.encode! old_name
+    def utf8_name
+      GritExt.encode! name
     end
   end
 end
