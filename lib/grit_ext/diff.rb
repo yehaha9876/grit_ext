@@ -1,7 +1,7 @@
 module Grit
   class Diff
 
-    alias list_from_string: :old_list_from_string
+    alias_method old_list_from_string:, :list_from_string
 
     def old_path
       GritExt.encode! @a_path
