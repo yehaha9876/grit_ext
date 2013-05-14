@@ -1,8 +1,6 @@
 module Grit
   class Diff
 
-    alias_method :old_list_from_string, :list_from_string
-
     def old_path
       GritExt.encode! @a_path
     end
@@ -22,9 +20,12 @@ module Grit
       end
     end
 
-    # fix utf-8 format error
-    def self.list_from_string(repo, text)
-      return old_list_from_string(repo, text)
+    class << self
+      alias_method :old_list_from_string, :list_from_string
+      # fix utf-8 format error
+      def self.list_from_string(repo, text)
+        return self.old_list_from_string(repo, text)
+      end
     end
 
   end

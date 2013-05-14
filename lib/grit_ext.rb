@@ -7,6 +7,8 @@ require "grit_ext/diff"
 require "grit_ext/version"
 require "grit_ext/submodule"
 require "grit_ext/ref"
+require "grit_ext/repo"
+require "grit_ext/tag"
 
 module GritExt
   extend self
