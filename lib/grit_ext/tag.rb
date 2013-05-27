@@ -56,5 +56,5 @@ module Grit
       end
       self
     end
-
+  end
 end
