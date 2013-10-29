@@ -12,7 +12,6 @@ module Grit
       refs = repo.git.refs_with_commit_id(options, prefix)
       refs.split("\n").map do |ref|
         name, id = *ref.split(' ')
-        //sha = repo.git.commit_from_sha(id)
         sha = id
         raise "Unknown object type." if sha == ''
         commit = Commit.create(repo, :id => sha)
