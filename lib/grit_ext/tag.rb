@@ -9,24 +9,13 @@ module Grit
     # do not support this type of tag so far
     def self.find_all(repo, options = {})
 
-      refs = repo.git.refs(options, prefix)
+      refs = repo.git.refs_with_commit_id(options, prefix)
       refs.split("\n").map do |ref|
         name, id = *ref.split(' ')
-        sha = repo.git.commit_from_sha(id)
-        objtype = repo.git.file_type(sha)
-        while objtype == 'tag'
-          sha = repo.git.commit_from_sha(sha)
-          objtype = repo.git.file_type(sha)
-        end
-
+        //sha = repo.git.commit_from_sha(id)
+        sha = id
         raise "Unknown object type." if sha == ''
-        
-        if objtype == 'commit'
-          commit = Commit.create(repo, :id => sha)
-        else
-          commit = nil
-        end
-
+        commit = Commit.create(repo, :id => sha)
         new(name, commit)
       end
     end
