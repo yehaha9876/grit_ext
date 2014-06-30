@@ -1,4 +1,5 @@
 require "charlock_holmes"
+require "rchardet19"
 require "grit_ext/actor"
 require "grit_ext/blob"
 require "grit_ext/commit"
@@ -15,17 +16,17 @@ module GritExt
 
   def encode!(message)
     return nil unless message.respond_to? :force_encoding
-
-    # if message is utf-8 encoding, just return it
-    message.force_encoding("UTF-8")
-    return message if message.valid_encoding?
-
+    
     # return message if message type is binary
     detect = CharlockHolmes::EncodingDetector.detect(message)
     return message.force_encoding("BINARY") if detect && detect[:type] == :binary
-
-    # encoding message to detect encoding
-    if detect && detect[:encoding]
+    
+    if detect && detect[:confidence] == 100
+      # encoding message to detect encoding
+      message.force_encoding(detect[:encoding])
+    else
+      detect = CharDet.detect(message)
+      if detect.confidence > 0.6
       message.force_encoding(detect[:encoding])
     end
 
