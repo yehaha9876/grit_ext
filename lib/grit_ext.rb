@@ -26,8 +26,7 @@ module GritExt
       message.force_encoding(detect[:encoding])
     else
       detect = CharDet.detect(message)
-      if detect.confidence > 0.6
-      message.force_encoding(detect[:encoding])
+      message.force_encoding(detect[:encoding]) if detect.confidence > 0.6
     end
 
     # encode and clean the bad chars
